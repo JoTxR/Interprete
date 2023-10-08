@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 public class Scanner {
     private static final Map<String, TipoToken> palabrasReservadas;
     static {
@@ -56,10 +55,10 @@ public class Scanner {
                         estado = 13;
                         lexema += c;
                         // diagrama 3
-                    } else if (Character.isDigit(c)) {
+                    }  else if(Character.isDigit(c)){
                         estado = 15;
                         lexema += c;
-                                                /*while(Character.isDigit(c)){
+                        /*while(Character.isDigit(c)){
                             lexema += c;
                             i++;
                             c = source.charAt(i);
@@ -69,11 +68,6 @@ public class Scanner {
                         estado = 0;
                         tokens.add(t);
                         */
-                        lexema = ".";
-                        Token t = new Token(TipoToken.DOT, lexema);
-                        tokens.add(t);
-                        estado = 0;
-                        lexema = "";
                     }
                     // diagrama 4
                     else if (c == '\"') {
@@ -206,6 +200,7 @@ public class Scanner {
                         lexema = "";
                         i--;
                     }
+                    break;
                     // fin cases diagrama 1
                     // cases diagrama 2
                 case 13:
@@ -222,7 +217,6 @@ public class Scanner {
                             Token t = new Token(tt, lexema);
                             tokens.add(t);
                         }
-
                         estado = 0;
                         lexema = "";
                         i--;
@@ -312,13 +306,15 @@ public class Scanner {
                         lexema += c;
                     }
                     break;
+                // fin cases diagrama 4
+                // cases diagrama 5
                 case 26:
                     if (c == '*') {
                         estado = 27;
-                        lexema += c;
+                        lexema = "";
                     } else if (c == '/') {
                         estado = 30;
-                        lexema += c;
+                        lexema = "";
                     } else {
                         Token t = new Token(TipoToken.SLASH, lexema);
                         tokens.add(t);
@@ -330,10 +326,8 @@ public class Scanner {
                 case 27:
                     if (c == '*') {
                         estado = 28;
-                        lexema += c;
                     }else{
                         estado = 27;
-                        lexema += c;
                     }
                     break;
                 case 28:
